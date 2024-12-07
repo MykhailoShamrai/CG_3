@@ -35,7 +35,6 @@
             tableLayoutPanel4 = new TableLayoutPanel();
             buttonSeparateChannels = new Button();
             buttonLoadImage = new Button();
-            listBoxMode = new ListBox();
             groupBoxLabSettings = new GroupBox();
             numericUpDownGamma = new NumericUpDown();
             numericUpDownYW = new NumericUpDown();
@@ -64,6 +63,7 @@
             pictureBoxFirst = new PictureBox();
             pictureBoxSecond = new PictureBox();
             pictureBoxThird = new PictureBox();
+            comboBoxMode = new ComboBox();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxSelectedImage).BeginInit();
@@ -121,6 +121,7 @@
             pictureBoxSelectedImage.Location = new Point(3, 3);
             pictureBoxSelectedImage.Name = "pictureBoxSelectedImage";
             pictureBoxSelectedImage.Size = new Size(694, 488);
+            pictureBoxSelectedImage.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxSelectedImage.TabIndex = 0;
             pictureBoxSelectedImage.TabStop = false;
             // 
@@ -145,8 +146,8 @@
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel4.Controls.Add(buttonSeparateChannels, 0, 2);
             tableLayoutPanel4.Controls.Add(buttonLoadImage, 0, 0);
-            tableLayoutPanel4.Controls.Add(listBoxMode, 0, 1);
             tableLayoutPanel4.Controls.Add(groupBoxLabSettings, 0, 3);
+            tableLayoutPanel4.Controls.Add(comboBoxMode, 0, 1);
             tableLayoutPanel4.Dock = DockStyle.Fill;
             tableLayoutPanel4.Location = new Point(3, 3);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -176,15 +177,6 @@
             buttonLoadImage.TabIndex = 1;
             buttonLoadImage.Text = "Load Image";
             buttonLoadImage.UseVisualStyleBackColor = true;
-            // 
-            // listBoxMode
-            // 
-            listBoxMode.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            listBoxMode.FormattingEnabled = true;
-            listBoxMode.Location = new Point(3, 57);
-            listBoxMode.Name = "listBoxMode";
-            listBoxMode.Size = new Size(191, 24);
-            listBoxMode.TabIndex = 0;
             // 
             // groupBoxLabSettings
             // 
@@ -259,6 +251,7 @@
             // 
             numericUpDownXW.DecimalPlaces = 6;
             numericUpDownXW.Location = new Point(119, 277);
+            numericUpDownXW.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
             numericUpDownXW.Name = "numericUpDownXW";
             numericUpDownXW.Size = new Size(83, 27);
             numericUpDownXW.TabIndex = 13;
@@ -267,6 +260,7 @@
             // 
             numericUpDownXB.DecimalPlaces = 6;
             numericUpDownXB.Location = new Point(119, 239);
+            numericUpDownXB.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
             numericUpDownXB.Name = "numericUpDownXB";
             numericUpDownXB.Size = new Size(83, 27);
             numericUpDownXB.TabIndex = 12;
@@ -275,6 +269,7 @@
             // 
             numericUpDownXGr.DecimalPlaces = 6;
             numericUpDownXGr.Location = new Point(119, 198);
+            numericUpDownXGr.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
             numericUpDownXGr.Name = "numericUpDownXGr";
             numericUpDownXGr.Size = new Size(83, 27);
             numericUpDownXGr.TabIndex = 11;
@@ -283,6 +278,7 @@
             // 
             numericUpDownXRed.DecimalPlaces = 6;
             numericUpDownXRed.Location = new Point(119, 158);
+            numericUpDownXRed.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
             numericUpDownXRed.Name = "numericUpDownXRed";
             numericUpDownXRed.Size = new Size(83, 27);
             numericUpDownXRed.TabIndex = 10;
@@ -444,6 +440,7 @@
             pictureBoxFirst.Location = new Point(3, 43);
             pictureBoxFirst.Name = "pictureBoxFirst";
             pictureBoxFirst.Size = new Size(427, 301);
+            pictureBoxFirst.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxFirst.TabIndex = 3;
             pictureBoxFirst.TabStop = false;
             // 
@@ -453,6 +450,7 @@
             pictureBoxSecond.Location = new Point(436, 43);
             pictureBoxSecond.Name = "pictureBoxSecond";
             pictureBoxSecond.Size = new Size(427, 301);
+            pictureBoxSecond.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxSecond.TabIndex = 4;
             pictureBoxSecond.TabStop = false;
             // 
@@ -462,8 +460,18 @@
             pictureBoxThird.Location = new Point(869, 43);
             pictureBoxThird.Name = "pictureBoxThird";
             pictureBoxThird.Size = new Size(427, 301);
+            pictureBoxThird.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxThird.TabIndex = 5;
             pictureBoxThird.TabStop = false;
+            // 
+            // comboBoxMode
+            // 
+            comboBoxMode.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxMode.FormattingEnabled = true;
+            comboBoxMode.Location = new Point(3, 51);
+            comboBoxMode.Name = "comboBoxMode";
+            comboBoxMode.Size = new Size(191, 28);
+            comboBoxMode.TabIndex = 2;
             // 
             // MainForm
             // 
@@ -472,6 +480,7 @@
             ClientSize = new Size(1282, 853);
             Controls.Add(tableLayoutPanel1);
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Color Extractor";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
@@ -507,7 +516,6 @@
         private GroupBox groupBoxLabSettings;
         private Button buttonLoadImage;
         private Button buttonSeparateChannels;
-        private ListBox listBoxMode;
         private Button buttonSaveOutput;
         private Label labelGamma;
         private Label labelWhitePoint;
@@ -535,5 +543,6 @@
         private PictureBox pictureBoxFirst;
         private PictureBox pictureBoxSecond;
         private PictureBox pictureBoxThird;
+        private ComboBox comboBoxMode;
     }
 }

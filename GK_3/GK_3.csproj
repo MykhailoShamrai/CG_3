@@ -8,4 +8,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+
+  <ItemGroup>
+    <None Update="pictures\1669101071_1-pibig-info-p-alukarda-oboi-1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy /y /s &quot;$(ProjectDir)pictures&quot; &quot;$(TargetDir)&quot; " />
+  </Target>
+
 </Project>
