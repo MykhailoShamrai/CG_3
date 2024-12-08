@@ -10,8 +10,7 @@ namespace GK_3.Converters
     public interface IConverter
     {
         public Vector3[,] Convert(Bitmap bitmap, ColorProfile profile, Iluminant iluminant);
-
-
+        public void DrawToBitmap(Bitmap bitmapFirst, Bitmap bitmapSecond, Bitmap bitmapThird, Vector3[,] values);
         public static Vector3 xyYForIluminant(Iluminant iluminant)
         {
             return new Vector3(iluminant.XWhite, iluminant.YWhite, 1);

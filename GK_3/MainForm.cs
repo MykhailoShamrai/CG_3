@@ -7,7 +7,6 @@ namespace GK_3
 {
     public partial class MainForm : Form
     {
-
         private Bitmap? _selectedImage;
         private Bitmap? _firstImage;
         private Bitmap? _secondImage;
@@ -15,6 +14,7 @@ namespace GK_3
         private LabConverter _labConverter = new LabConverter();
         private List<ColorProfile> _colorProfiles = new List<ColorProfile>();
         private List<Iluminant> _illuminants = new List<Iluminant>();
+        private List<IConverter> _converters = new List<IConverter>();
         public MainForm()
         {
             InitializeComponent();
@@ -33,24 +33,35 @@ namespace GK_3
                 comboBoxIlluminant.Items.Add(type.ToString());
             }
 
+            _firstImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
+            _secondImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
+            _thirdImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
+            pictureBoxFirst.Image = _firstImage;
+            pictureBoxSecond.Image = _secondImage;
+            pictureBoxThird.Image = _thirdImage;
+            
+
             comboBoxColorProfile.SelectedIndex = 0;
             comboBoxIlluminant.SelectedIndex = 0;
 
             CheckIfShowParametersColorProfileOnTheScreen();
             CheckIfShowParametersIlluminantOnTheScreen();
 
-            Vector3[,] valuesLab = _labConverter.Convert(_selectedImage!,
+            //Vector3[,] valuesLab = _labConverter.Convert(_selectedImage!,
+            //    _colorProfiles[comboBoxColorProfile.SelectedIndex], _illuminants[comboBoxIlluminant.SelectedIndex]);
+
+            HSVConverter converter = new HSVConverter();
+            Vector3[,] valuesHSV = converter.Convert(_selectedImage!,
                 _colorProfiles[comboBoxColorProfile.SelectedIndex], _illuminants[comboBoxIlluminant.SelectedIndex]);
 
-            _firstImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
-            _secondImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
-            _thirdImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
+            //YCbCrConverter converter = new YCbCrConverter();
+            //Vector3[,] valuesYCbCr = converter.Convert(_selectedImage!,
+            //    _colorProfiles[comboBoxColorProfile.SelectedIndex], _illuminants[comboBoxIlluminant.SelectedIndex]);
 
-            _labConverter.DrawToBitmap(_firstImage, _secondImage, _thirdImage, valuesLab);
+            converter.DrawToBitmap(_firstImage, _secondImage, _thirdImage, valuesHSV);
 
-            pictureBoxFirst.Image = _firstImage;
-            pictureBoxSecond.Image = _secondImage;
-            pictureBoxThird.Image = _thirdImage;
+            //_labConverter.DrawToBitmap(_firstImage, _secondImage, _thirdImage, valuesLab);
+
         }
 
         private void CheckIfShowParametersColorProfileOnTheScreen()

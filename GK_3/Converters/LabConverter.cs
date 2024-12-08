@@ -35,24 +35,21 @@ namespace GK_3.Converters
                                                                             0, 0, 0, 1);
             Matrix4x4 Bradford = BradfordMatrixFinder.CalculateBradfordMatrix(XYZWhiteSourceIluminant, XYZWhiteTargetIluminant);
             transformMatrix = Bradford * transformMatrix;
-            using (Graphics g = Graphics.FromImage(bitmap))
+            for (int i = 0; i < bitmap.Width; i++)
             {
-                for (int i = 0; i < bitmap.Width; i++)
+                for (int j = 0; j < bitmap.Height; j++)
                 {
-                    for (int j = 0; j < bitmap.Height; j++)
-                    {
-                        var col = bitmap.GetPixel(i, j);
-                        Vector3 RGBForPixel = new Vector3((float)col.R / 255, (float)col.G / 255, (float)col.B / 255);
-                        Vector3 XYZForPixel = Vector3.Transform(RGBForPixel, transformMatrix);
-                        float t = XYZForPixel.Y / XYZWhiteTargetIluminant.Y;
-                        float rootT = MathF.Pow(t, 1.0f / 3);
-                        float L = t > 0.008856 ? 116 * rootT : 903.3f * t;
-                        float a = 500 * (MathF.Pow(XYZForPixel.X / XYZWhiteTargetIluminant.X, 1.0f / 3) - rootT);
-                        float b = 200 * (rootT - MathF.Pow(XYZForPixel.Z /  XYZWhiteTargetIluminant.Z, 1.0f / 3));
-                        ret[i, j].X = L;
-                        ret[i, j].Y = a;
-                        ret[i, j].Z = b;
-                    }
+                    var col = bitmap.GetPixel(i, j);
+                    Vector3 RGBForPixel = new Vector3((float)col.R / 255, (float)col.G / 255, (float)col.B / 255);
+                    Vector3 XYZForPixel = Vector3.Transform(RGBForPixel, transformMatrix);
+                    float t = XYZForPixel.Y / XYZWhiteTargetIluminant.Y;
+                    float rootT = MathF.Pow(t, 1.0f / 3);
+                    float L = t > 0.008856 ? 116 * rootT : 903.3f * t;
+                    float a = 500 * (MathF.Pow(XYZForPixel.X / XYZWhiteTargetIluminant.X, 1.0f / 3) - rootT);
+                    float b = 200 * (rootT - MathF.Pow(XYZForPixel.Z /  XYZWhiteTargetIluminant.Z, 1.0f / 3));
+                    ret[i, j].X = L;
+                    ret[i, j].Y = a;
+                    ret[i, j].Z = b;
                 }
             }
             return ret;
