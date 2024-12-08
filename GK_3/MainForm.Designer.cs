@@ -43,8 +43,8 @@
             numericUpDownYR = new NumericUpDown();
             numericUpDownXW = new NumericUpDown();
             numericUpDownXB = new NumericUpDown();
-            numericUpDownXGr = new NumericUpDown();
-            numericUpDownXRed = new NumericUpDown();
+            numericUpDownXG = new NumericUpDown();
+            numericUpDownXR = new NumericUpDown();
             labelGamma = new Label();
             labelWhitePoint = new Label();
             labelBluePrimary = new Label();
@@ -55,6 +55,7 @@
             labelCromaticity = new Label();
             labelPredefindedIlluminant = new Label();
             labelPredefinedColorProfile = new Label();
+            comboBoxMode = new ComboBox();
             buttonSaveOutput = new Button();
             tableLayoutPanel5 = new TableLayoutPanel();
             labelFirst = new Label();
@@ -63,7 +64,8 @@
             pictureBoxFirst = new PictureBox();
             pictureBoxSecond = new PictureBox();
             pictureBoxThird = new PictureBox();
-            comboBoxMode = new ComboBox();
+            comboBoxColorProfile = new ComboBox();
+            comboBoxIlluminant = new ComboBox();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxSelectedImage).BeginInit();
@@ -77,8 +79,8 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDownYR).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownXW).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownXB).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownXGr).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownXRed).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownXG).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownXR).BeginInit();
             tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxFirst).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxSecond).BeginInit();
@@ -181,6 +183,8 @@
             // groupBoxLabSettings
             // 
             groupBoxLabSettings.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            groupBoxLabSettings.Controls.Add(comboBoxIlluminant);
+            groupBoxLabSettings.Controls.Add(comboBoxColorProfile);
             groupBoxLabSettings.Controls.Add(numericUpDownGamma);
             groupBoxLabSettings.Controls.Add(numericUpDownYW);
             groupBoxLabSettings.Controls.Add(numericUpDownYB);
@@ -188,8 +192,8 @@
             groupBoxLabSettings.Controls.Add(numericUpDownYR);
             groupBoxLabSettings.Controls.Add(numericUpDownXW);
             groupBoxLabSettings.Controls.Add(numericUpDownXB);
-            groupBoxLabSettings.Controls.Add(numericUpDownXGr);
-            groupBoxLabSettings.Controls.Add(numericUpDownXRed);
+            groupBoxLabSettings.Controls.Add(numericUpDownXG);
+            groupBoxLabSettings.Controls.Add(numericUpDownXR);
             groupBoxLabSettings.Controls.Add(labelGamma);
             groupBoxLabSettings.Controls.Add(labelWhitePoint);
             groupBoxLabSettings.Controls.Add(labelBluePrimary);
@@ -267,21 +271,21 @@
             // 
             // numericUpDownXGr
             // 
-            numericUpDownXGr.DecimalPlaces = 6;
-            numericUpDownXGr.Location = new Point(119, 198);
-            numericUpDownXGr.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
-            numericUpDownXGr.Name = "numericUpDownXGr";
-            numericUpDownXGr.Size = new Size(83, 27);
-            numericUpDownXGr.TabIndex = 11;
+            numericUpDownXG.DecimalPlaces = 6;
+            numericUpDownXG.Location = new Point(119, 198);
+            numericUpDownXG.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
+            numericUpDownXG.Name = "numericUpDownXGr";
+            numericUpDownXG.Size = new Size(83, 27);
+            numericUpDownXG.TabIndex = 11;
             // 
             // numericUpDownXRed
             // 
-            numericUpDownXRed.DecimalPlaces = 6;
-            numericUpDownXRed.Location = new Point(119, 158);
-            numericUpDownXRed.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
-            numericUpDownXRed.Name = "numericUpDownXRed";
-            numericUpDownXRed.Size = new Size(83, 27);
-            numericUpDownXRed.TabIndex = 10;
+            numericUpDownXR.DecimalPlaces = 6;
+            numericUpDownXR.Location = new Point(119, 158);
+            numericUpDownXR.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
+            numericUpDownXR.Name = "numericUpDownXRed";
+            numericUpDownXR.Size = new Size(83, 27);
+            numericUpDownXR.TabIndex = 10;
             // 
             // labelGamma
             // 
@@ -372,6 +376,15 @@
             labelPredefinedColorProfile.Size = new Size(167, 20);
             labelPredefinedColorProfile.TabIndex = 0;
             labelPredefinedColorProfile.Text = "Predefined color profile";
+            // 
+            // comboBoxMode
+            // 
+            comboBoxMode.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxMode.FormattingEnabled = true;
+            comboBoxMode.Location = new Point(3, 51);
+            comboBoxMode.Name = "comboBoxMode";
+            comboBoxMode.Size = new Size(191, 28);
+            comboBoxMode.TabIndex = 2;
             // 
             // buttonSaveOutput
             // 
@@ -464,14 +477,23 @@
             pictureBoxThird.TabIndex = 5;
             pictureBoxThird.TabStop = false;
             // 
-            // comboBoxMode
+            // comboBoxColorProfile
             // 
-            comboBoxMode.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxMode.FormattingEnabled = true;
-            comboBoxMode.Location = new Point(3, 51);
-            comboBoxMode.Name = "comboBoxMode";
-            comboBoxMode.Size = new Size(191, 28);
-            comboBoxMode.TabIndex = 2;
+            comboBoxColorProfile.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxColorProfile.FormattingEnabled = true;
+            comboBoxColorProfile.Location = new Point(188, 33);
+            comboBoxColorProfile.Name = "comboBoxColorProfile";
+            comboBoxColorProfile.Size = new Size(151, 28);
+            comboBoxColorProfile.TabIndex = 19;
+            // 
+            // comboBoxIlluminant
+            // 
+            comboBoxIlluminant.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxIlluminant.FormattingEnabled = true;
+            comboBoxIlluminant.Location = new Point(188, 69);
+            comboBoxIlluminant.Name = "comboBoxIlluminant";
+            comboBoxIlluminant.Size = new Size(151, 28);
+            comboBoxIlluminant.TabIndex = 20;
             // 
             // MainForm
             // 
@@ -496,8 +518,8 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDownYR).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownXW).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownXB).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownXGr).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownXRed).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownXG).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownXR).EndInit();
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxFirst).EndInit();
@@ -534,8 +556,8 @@
         private NumericUpDown numericUpDownYR;
         private NumericUpDown numericUpDownXW;
         private NumericUpDown numericUpDownXB;
-        private NumericUpDown numericUpDownXGr;
-        private NumericUpDown numericUpDownXRed;
+        private NumericUpDown numericUpDownXG;
+        private NumericUpDown numericUpDownXR;
         private TableLayoutPanel tableLayoutPanel5;
         private Label labelFirst;
         private Label labelSecond;
@@ -544,5 +566,7 @@
         private PictureBox pictureBoxSecond;
         private PictureBox pictureBoxThird;
         private ComboBox comboBoxMode;
+        private ComboBox comboBoxIlluminant;
+        private ComboBox comboBoxColorProfile;
     }
 }

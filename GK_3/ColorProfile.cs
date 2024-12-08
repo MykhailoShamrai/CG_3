@@ -8,16 +8,17 @@ namespace GK_3
 {
     public class ColorProfile
     {
-        public double XRed { get; set; }
-        public double YRed { get; set; }
-        public double XGreen { get; set; }
-        public double YGreen { get; set; }
-        public double XBlue { get; set; }
-        public double YBlue { get; set; }
-        public double Gamma { get; set; }
+        public ColorProfileType Type { get; set; }
+        public float XRed { get; set; }
+        public float YRed { get; set; }
+        public float XGreen { get; set; }
+        public float YGreen { get; set; }
+        public float XBlue { get; set; }
+        public float YBlue { get; set; }
+        public float Gamma { get; set; }
 
-        public ColorProfile(double xRed, double yRed, double xGreen, double yGreen,
-            double xBlue, double yBlue, double gamma)
+        public ColorProfile(float xRed, float yRed, float xGreen, float yGreen,
+            float xBlue, float yBlue, float gamma, ColorProfileType type)
         {
             XRed = xRed;
             YRed = yRed;
@@ -26,6 +27,7 @@ namespace GK_3
             XBlue = xBlue;
             YBlue = yBlue;
             Gamma = gamma;
+            Type = type;
         }
 
         public enum ColorProfileType
@@ -36,14 +38,17 @@ namespace GK_3
         public static ColorProfile GenerateColorProfile(ColorProfileType type)
         {
             // for sRGB and for Custom, parameters will be the same
-            ColorProfile ret = new ColorProfile(0.64, 0.33, 0.3, 0.6, 0.15, 0.06, 2.2); 
+            ColorProfile ret = new ColorProfile(0.64f, 0.33f, 0.3f, 0.6f, 0.15f, 0.06f, 2.2f, ColorProfileType.Custom); 
             switch (type)
             {
+                case ColorProfileType.sRGB:
+                    ret = new ColorProfile(0.64f, 0.33f, 0.3f, 0.6f, 0.15f, 0.06f, 2.2f, ColorProfileType.sRGB);
+                    break;
                 case ColorProfileType.AdobeRGB:
-                    ret = new ColorProfile(0.64, 0.33, 0.21, 0.71, 0.15, 0.06, 2.2);
+                    ret = new ColorProfile(0.64f, 0.33f, 0.21f, 0.71f, 0.15f, 0.06f, 2.2f, ColorProfileType.AdobeRGB);
                     break;
                 case ColorProfileType.WideGamut:
-                    ret = new ColorProfile(0.7347, 0.2653, 0.1152, 0.8264, 0.1566, 0.0177, 1.2);
+                    ret = new ColorProfile(0.7347f, 0.2653f, 0.1152f, 0.8264f, 0.1566f, 0.0177f, 1.2f, ColorProfileType.WideGamut);
                     break;
             }
             return ret;
