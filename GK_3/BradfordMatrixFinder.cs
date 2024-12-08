@@ -17,7 +17,7 @@ namespace GK_3
         private static Matrix4x4 InversionOfBaseMatrix = new Matrix4x4(0.9870f, -0.1471f, 0.1600f, 0,
                                                                0.4823f, 0.5184f, 0.0493f, 0,
                                                                -0.0085f, 0.0400f, 0.9685f, 0,
-                                                               0, 0, 0, 0);
+                                                               0, 0, 0, 1);
 
         public static Matrix4x4 CalculateBradfordMatrix(Vector3 XYZsourceWhite, Vector3 XYZtargetWhite)
         {

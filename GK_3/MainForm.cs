@@ -1,4 +1,5 @@
 using GK_3.Converters;
+using System.Drawing.Imaging;
 using System.Net.Http.Headers;
 using System.Numerics;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
@@ -11,7 +12,6 @@ namespace GK_3
         private Bitmap? _firstImage;
         private Bitmap? _secondImage;
         private Bitmap? _thirdImage;
-        private LabConverter _labConverter = new LabConverter();
         private List<ColorProfile> _colorProfiles = new List<ColorProfile>();
         private List<Iluminant> _illuminants = new List<Iluminant>();
         private List<IConverter> _converters = new List<IConverter>();
@@ -33,35 +33,48 @@ namespace GK_3
                 comboBoxIlluminant.Items.Add(type.ToString());
             }
 
+            comboBoxMode.Items.Add("YCbCr");
+            comboBoxMode.Items.Add("HSV");
+            comboBoxMode.Items.Add("Lab");
+            comboBoxMode.SelectedIndex = 0;
+            _converters.Add(new YCbCrConverter());
+            _converters.Add(new HSVConverter());
+            _converters.Add(new LabConverter());
+
+            comboBoxColorProfile.SelectedIndex = 0;
+            comboBoxIlluminant.SelectedIndex = 0;
+
+
             _firstImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
             _secondImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
             _thirdImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
             pictureBoxFirst.Image = _firstImage;
             pictureBoxSecond.Image = _secondImage;
             pictureBoxThird.Image = _thirdImage;
-            
+
 
             comboBoxColorProfile.SelectedIndex = 0;
             comboBoxIlluminant.SelectedIndex = 0;
 
             CheckIfShowParametersColorProfileOnTheScreen();
             CheckIfShowParametersIlluminantOnTheScreen();
+            ShowNumerics();
+            buttonSaveOutput.Enabled = false;
+        }
 
-            //Vector3[,] valuesLab = _labConverter.Convert(_selectedImage!,
-            //    _colorProfiles[comboBoxColorProfile.SelectedIndex], _illuminants[comboBoxIlluminant.SelectedIndex]);
-
-            HSVConverter converter = new HSVConverter();
-            Vector3[,] valuesHSV = converter.Convert(_selectedImage!,
-                _colorProfiles[comboBoxColorProfile.SelectedIndex], _illuminants[comboBoxIlluminant.SelectedIndex]);
-
-            //YCbCrConverter converter = new YCbCrConverter();
-            //Vector3[,] valuesYCbCr = converter.Convert(_selectedImage!,
-            //    _colorProfiles[comboBoxColorProfile.SelectedIndex], _illuminants[comboBoxIlluminant.SelectedIndex]);
-
-            converter.DrawToBitmap(_firstImage, _secondImage, _thirdImage, valuesHSV);
-
-            //_labConverter.DrawToBitmap(_firstImage, _secondImage, _thirdImage, valuesLab);
-
+        private void ShowNumerics()
+        {
+            ColorProfile profile = _colorProfiles[comboBoxColorProfile.SelectedIndex];
+            Iluminant iluminant = _illuminants[comboBoxIlluminant.SelectedIndex];
+            numericUpDownXR.Value = (decimal)profile.XRed;
+            numericUpDownYR.Value = (decimal)profile.YRed;
+            numericUpDownXG.Value = (decimal)profile.XGreen;
+            numericUpDownYG.Value = (decimal)profile.YGreen;
+            numericUpDownXB.Value = (decimal)profile.XBlue;
+            numericUpDownYB.Value = (decimal)profile.YBlue;
+            numericUpDownGamma.Value = (decimal)profile.Gamma;
+            numericUpDownXW.Value = (decimal)iluminant.XWhite;
+            numericUpDownYW.Value = (decimal)iluminant.YWhite;
         }
 
         private void CheckIfShowParametersColorProfileOnTheScreen()
@@ -106,7 +119,144 @@ namespace GK_3
             {
                 var tmp = ImageFromFile(dialog.FileName);
                 image = tmp is null ? image : tmp;
-            }           
+            }
+        }
+
+        private void comboBoxMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBoxMode.SelectedItem)
+            {
+                case "YCbCr":
+                    labelFirst.Text = "Y";
+                    labelSecond.Text = "Cb";
+                    labelThird.Text = "Cr";
+                    break;
+                case "HSV":
+                    labelFirst.Text = "H";
+                    labelSecond.Text = "S";
+                    labelThird.Text = "V";
+                    break;
+                case "Lab":
+                    labelFirst.Text = "L";
+                    labelSecond.Text = "a";
+                    labelThird.Text = "b";
+                    break;
+            }
+        }
+
+        private void comboBoxColorProfile_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxColorProfile.SelectedIndex < 0)
+            {
+                comboBoxColorProfile.SelectedIndex = 0;
+            }
+            if (comboBoxIlluminant.SelectedIndex < 0)
+            {
+                comboBoxIlluminant.SelectedIndex = 0;
+            }
+            comboBoxIlluminant.SelectedIndex = 0;
+            CheckIfShowParametersColorProfileOnTheScreen();
+            CheckIfShowParametersIlluminantOnTheScreen();
+            ShowNumerics();
+        }
+
+        private void comboBoxIlluminant_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CheckIfShowParametersIlluminantOnTheScreen();
+            ShowNumerics();
+        }
+
+        private void buttonSeparateChannels_Click(object sender, EventArgs e)
+        {
+            var res = _converters[comboBoxMode.SelectedIndex].Convert(_selectedImage!,
+                _colorProfiles[comboBoxColorProfile.SelectedIndex], _illuminants[comboBoxIlluminant.SelectedIndex]);
+            _converters[comboBoxMode.SelectedIndex].DrawToBitmap(_firstImage!, _secondImage!, _thirdImage!, res);
+            pictureBoxFirst.Invalidate();
+            pictureBoxSecond.Invalidate();
+            pictureBoxThird.Invalidate();
+            buttonSaveOutput.Enabled = true;
+        }
+
+        private void numericUpDownXR_ValueChanged(object sender, EventArgs e)
+        {
+            _colorProfiles[comboBoxColorProfile.SelectedIndex].XRed = (float)numericUpDownXR.Value;
+        }
+
+        private void numericUpDownYR_ValueChanged(object sender, EventArgs e)
+        {
+            _colorProfiles[comboBoxColorProfile.SelectedIndex].YRed = (float)numericUpDownYR.Value;
+        }
+
+        private void numericUpDownXG_ValueChanged(object sender, EventArgs e)
+        {
+            _colorProfiles[comboBoxColorProfile.SelectedIndex].XGreen = (float)numericUpDownXG.Value;
+        }
+
+        private void numericUpDownYG_ValueChanged(object sender, EventArgs e)
+        {
+            _colorProfiles[comboBoxColorProfile.SelectedIndex].YGreen = (float)numericUpDownXR.Value;
+        }
+
+        private void numericUpDownXB_ValueChanged(object sender, EventArgs e)
+        {
+            _colorProfiles[comboBoxColorProfile.SelectedIndex].XBlue = (float)numericUpDownXB.Value;
+        }
+
+        private void numericUpDownYB_ValueChanged(object sender, EventArgs e)
+        {
+            _colorProfiles[comboBoxColorProfile.SelectedIndex].YBlue = (float)numericUpDownYB.Value;
+        }
+
+        private void numericUpDownXW_ValueChanged(object sender, EventArgs e)
+        {
+            _illuminants[comboBoxIlluminant.SelectedIndex].XWhite = (float)numericUpDownXW.Value;
+        }
+
+        private void numericUpDownYW_ValueChanged(object sender, EventArgs e)
+        {
+            _illuminants[comboBoxIlluminant.SelectedIndex].YWhite = (float)numericUpDownYW.Value;
+        }
+
+        private void numericUpDownGamma_ValueChanged(object sender, EventArgs e)
+        {
+            _colorProfiles[comboBoxColorProfile.SelectedIndex].Gamma = (float)numericUpDownGamma.Value;
+        }
+
+        private void buttonLoadImage_Click(object sender, EventArgs e)
+        {
+            ShowDialogForImage(ref _selectedImage);
+            pictureBoxSelectedImage.Image = _selectedImage;
+            pictureBoxSelectedImage.Invalidate();
+            _firstImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
+            _secondImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
+            _thirdImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
+            pictureBoxFirst.Image = _firstImage;
+            pictureBoxSecond.Image = _secondImage;
+            pictureBoxThird.Image = _thirdImage;
+        }
+
+        private void buttonSaveOutput_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+            {
+                dialog.ShowNewFolderButton = true;
+                dialog.Description = "Choose directory to save";
+                string mode = comboBoxMode.SelectedItem.ToString()!;
+                string fileNameFirst = $"Image_{DateTime.Now.ToString("MM_dd_mm_ss")}_{mode}_first_channel.png";
+                string fileNameSecond = $"Image_{DateTime.Now.ToString("MM_dd_mm_ss")}_{mode}_second_channel.png";
+                string fileNameThird = $"Image_{DateTime.Now.ToString("MM_dd_mm_ss")}_{mode}_third_channel.png";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    string chosenDir = dialog.SelectedPath;
+                    string fullPathFirst = Path.Combine(chosenDir, fileNameFirst);
+                    string fullPathSecond = Path.Combine(chosenDir, fileNameSecond);
+                    string fullPathThird = Path.Combine(chosenDir, fileNameThird);
+                    ImageFormat format = ImageFormat.Png;
+                    _firstImage.Save(fullPathFirst, format);
+                    _secondImage.Save(fullPathSecond, format);
+                    _thirdImage.Save(fullPathThird, format);
+                }
+            }
         }
     }
 }

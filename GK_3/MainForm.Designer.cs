@@ -36,6 +36,8 @@
             buttonSeparateChannels = new Button();
             buttonLoadImage = new Button();
             groupBoxLabSettings = new GroupBox();
+            comboBoxIlluminant = new ComboBox();
+            comboBoxColorProfile = new ComboBox();
             numericUpDownGamma = new NumericUpDown();
             numericUpDownYW = new NumericUpDown();
             numericUpDownYB = new NumericUpDown();
@@ -64,8 +66,6 @@
             pictureBoxFirst = new PictureBox();
             pictureBoxSecond = new PictureBox();
             pictureBoxThird = new PictureBox();
-            comboBoxColorProfile = new ComboBox();
-            comboBoxIlluminant = new ComboBox();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxSelectedImage).BeginInit();
@@ -169,6 +169,7 @@
             buttonSeparateChannels.TabIndex = 1;
             buttonSeparateChannels.Text = "Separate Channels";
             buttonSeparateChannels.UseVisualStyleBackColor = true;
+            buttonSeparateChannels.Click += buttonSeparateChannels_Click;
             // 
             // buttonLoadImage
             // 
@@ -179,6 +180,7 @@
             buttonLoadImage.TabIndex = 1;
             buttonLoadImage.Text = "Load Image";
             buttonLoadImage.UseVisualStyleBackColor = true;
+            buttonLoadImage.Click += buttonLoadImage_Click;
             // 
             // groupBoxLabSettings
             // 
@@ -211,81 +213,124 @@
             groupBoxLabSettings.TabStop = false;
             groupBoxLabSettings.Text = "Lab Settings";
             // 
+            // comboBoxIlluminant
+            // 
+            comboBoxIlluminant.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxIlluminant.FormattingEnabled = true;
+            comboBoxIlluminant.Location = new Point(188, 69);
+            comboBoxIlluminant.Name = "comboBoxIlluminant";
+            comboBoxIlluminant.Size = new Size(151, 28);
+            comboBoxIlluminant.TabIndex = 20;
+            comboBoxIlluminant.SelectedIndexChanged += comboBoxIlluminant_SelectedIndexChanged;
+            // 
+            // comboBoxColorProfile
+            // 
+            comboBoxColorProfile.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxColorProfile.FormattingEnabled = true;
+            comboBoxColorProfile.Location = new Point(188, 33);
+            comboBoxColorProfile.Name = "comboBoxColorProfile";
+            comboBoxColorProfile.Size = new Size(151, 28);
+            comboBoxColorProfile.TabIndex = 19;
+            comboBoxColorProfile.SelectedIndexChanged += comboBoxColorProfile_SelectedIndexChanged;
+            // 
             // numericUpDownGamma
             // 
             numericUpDownGamma.DecimalPlaces = 2;
+            numericUpDownGamma.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             numericUpDownGamma.Location = new Point(235, 320);
+            numericUpDownGamma.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             numericUpDownGamma.Name = "numericUpDownGamma";
             numericUpDownGamma.Size = new Size(83, 27);
             numericUpDownGamma.TabIndex = 18;
+            numericUpDownGamma.ValueChanged += numericUpDownGamma_ValueChanged;
             // 
             // numericUpDownYW
             // 
             numericUpDownYW.DecimalPlaces = 6;
+            numericUpDownYW.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             numericUpDownYW.Location = new Point(235, 277);
+            numericUpDownYW.Maximum = new decimal(new int[] { 9, 0, 0, 65536 });
             numericUpDownYW.Name = "numericUpDownYW";
             numericUpDownYW.Size = new Size(83, 27);
             numericUpDownYW.TabIndex = 17;
+            numericUpDownYW.ValueChanged += numericUpDownYW_ValueChanged;
             // 
             // numericUpDownYB
             // 
             numericUpDownYB.DecimalPlaces = 6;
+            numericUpDownYB.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             numericUpDownYB.Location = new Point(235, 239);
+            numericUpDownYB.Maximum = new decimal(new int[] { 9, 0, 0, 65536 });
             numericUpDownYB.Name = "numericUpDownYB";
             numericUpDownYB.Size = new Size(83, 27);
             numericUpDownYB.TabIndex = 16;
+            numericUpDownYB.ValueChanged += numericUpDownYB_ValueChanged;
             // 
             // numericUpDownYG
             // 
             numericUpDownYG.DecimalPlaces = 6;
+            numericUpDownYG.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             numericUpDownYG.Location = new Point(235, 198);
+            numericUpDownYG.Maximum = new decimal(new int[] { 9, 0, 0, 65536 });
             numericUpDownYG.Name = "numericUpDownYG";
             numericUpDownYG.Size = new Size(83, 27);
             numericUpDownYG.TabIndex = 15;
+            numericUpDownYG.ValueChanged += numericUpDownYG_ValueChanged;
             // 
             // numericUpDownYR
             // 
             numericUpDownYR.DecimalPlaces = 6;
+            numericUpDownYR.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             numericUpDownYR.Location = new Point(235, 158);
+            numericUpDownYR.Maximum = new decimal(new int[] { 9, 0, 0, 65536 });
             numericUpDownYR.Name = "numericUpDownYR";
             numericUpDownYR.Size = new Size(83, 27);
             numericUpDownYR.TabIndex = 14;
+            numericUpDownYR.ValueChanged += numericUpDownYR_ValueChanged;
             // 
             // numericUpDownXW
             // 
             numericUpDownXW.DecimalPlaces = 6;
+            numericUpDownXW.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             numericUpDownXW.Location = new Point(119, 277);
             numericUpDownXW.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
             numericUpDownXW.Name = "numericUpDownXW";
             numericUpDownXW.Size = new Size(83, 27);
             numericUpDownXW.TabIndex = 13;
+            numericUpDownXW.ValueChanged += numericUpDownXW_ValueChanged;
             // 
             // numericUpDownXB
             // 
             numericUpDownXB.DecimalPlaces = 6;
+            numericUpDownXB.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             numericUpDownXB.Location = new Point(119, 239);
             numericUpDownXB.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
             numericUpDownXB.Name = "numericUpDownXB";
             numericUpDownXB.Size = new Size(83, 27);
             numericUpDownXB.TabIndex = 12;
+            numericUpDownXB.ValueChanged += numericUpDownXB_ValueChanged;
             // 
-            // numericUpDownXGr
+            // numericUpDownXG
             // 
             numericUpDownXG.DecimalPlaces = 6;
+            numericUpDownXG.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             numericUpDownXG.Location = new Point(119, 198);
             numericUpDownXG.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
-            numericUpDownXG.Name = "numericUpDownXGr";
+            numericUpDownXG.Name = "numericUpDownXG";
             numericUpDownXG.Size = new Size(83, 27);
             numericUpDownXG.TabIndex = 11;
+            numericUpDownXG.ValueChanged += numericUpDownXG_ValueChanged;
             // 
-            // numericUpDownXRed
+            // numericUpDownXR
             // 
             numericUpDownXR.DecimalPlaces = 6;
+            numericUpDownXR.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             numericUpDownXR.Location = new Point(119, 158);
             numericUpDownXR.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
-            numericUpDownXR.Name = "numericUpDownXRed";
+            numericUpDownXR.Name = "numericUpDownXR";
             numericUpDownXR.Size = new Size(83, 27);
             numericUpDownXR.TabIndex = 10;
+            numericUpDownXR.ValueChanged += numericUpDownXR_ValueChanged;
             // 
             // labelGamma
             // 
@@ -385,6 +430,7 @@
             comboBoxMode.Name = "comboBoxMode";
             comboBoxMode.Size = new Size(191, 28);
             comboBoxMode.TabIndex = 2;
+            comboBoxMode.SelectedIndexChanged += comboBoxMode_SelectedIndexChanged;
             // 
             // buttonSaveOutput
             // 
@@ -395,6 +441,7 @@
             buttonSaveOutput.TabIndex = 1;
             buttonSaveOutput.Text = "Save Output";
             buttonSaveOutput.UseVisualStyleBackColor = true;
+            buttonSaveOutput.Click += buttonSaveOutput_Click;
             // 
             // tableLayoutPanel5
             // 
@@ -476,24 +523,6 @@
             pictureBoxThird.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxThird.TabIndex = 5;
             pictureBoxThird.TabStop = false;
-            // 
-            // comboBoxColorProfile
-            // 
-            comboBoxColorProfile.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxColorProfile.FormattingEnabled = true;
-            comboBoxColorProfile.Location = new Point(188, 33);
-            comboBoxColorProfile.Name = "comboBoxColorProfile";
-            comboBoxColorProfile.Size = new Size(151, 28);
-            comboBoxColorProfile.TabIndex = 19;
-            // 
-            // comboBoxIlluminant
-            // 
-            comboBoxIlluminant.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxIlluminant.FormattingEnabled = true;
-            comboBoxIlluminant.Location = new Point(188, 69);
-            comboBoxIlluminant.Name = "comboBoxIlluminant";
-            comboBoxIlluminant.Size = new Size(151, 28);
-            comboBoxIlluminant.TabIndex = 20;
             // 
             // MainForm
             // 

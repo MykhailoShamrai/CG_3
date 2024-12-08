@@ -21,7 +21,7 @@ namespace GK_3
 
         public enum IlluminantPredefinedType
         {
-            D65, Custom
+            D65, D50, F4, Custom
         }
 
         public static Iluminant GenerateIlluminant(IlluminantPredefinedType type)
@@ -31,6 +31,12 @@ namespace GK_3
             {
                 case IlluminantPredefinedType.D65:
                     ret = new Iluminant(0.31273f, 0.329020f, IlluminantPredefinedType.D65);
+                    break;
+                case IlluminantPredefinedType.D50:
+                    ret = new Iluminant(0.34567f, 0.35850f, IlluminantPredefinedType.D65);
+                    break;
+                case IlluminantPredefinedType.F4:
+                    ret = new Iluminant(0.44018f, 0.40329f, IlluminantPredefinedType.D65);
                     break;
             }
             return ret;

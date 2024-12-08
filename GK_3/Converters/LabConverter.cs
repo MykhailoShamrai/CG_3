@@ -34,22 +34,39 @@ namespace GK_3.Converters
                                                                             0, 0, SRGB.Z, 0,
                                                                             0, 0, 0, 1);
             Matrix4x4 Bradford = BradfordMatrixFinder.CalculateBradfordMatrix(XYZWhiteSourceIluminant, XYZWhiteTargetIluminant);
-            transformMatrix = Bradford * transformMatrix;
+            transformMatrix = Matrix4x4.Multiply(Bradford, transformMatrix);
+            float gamma = profile.Gamma;
             for (int i = 0; i < bitmap.Width; i++)
             {
                 for (int j = 0; j < bitmap.Height; j++)
                 {
                     var col = bitmap.GetPixel(i, j);
                     Vector3 RGBForPixel = new Vector3((float)col.R / 255, (float)col.G / 255, (float)col.B / 255);
+                    // Here I must also use gamma correction
+                    RGBForPixel.X = MathF.Pow(RGBForPixel.X, 1.0f / gamma);
+                    RGBForPixel.Y = MathF.Pow(RGBForPixel.Y, 1.0f / gamma);
+                    RGBForPixel.Z = MathF.Pow(RGBForPixel.Z, 1.0f / gamma);
                     Vector3 XYZForPixel = Vector3.Transform(RGBForPixel, transformMatrix);
                     float t = XYZForPixel.Y / XYZWhiteTargetIluminant.Y;
-                    float rootT = MathF.Pow(t, 1.0f / 3);
-                    float L = t > 0.008856 ? 116 * rootT : 903.3f * t;
-                    float a = 500 * (MathF.Pow(XYZForPixel.X / XYZWhiteTargetIluminant.X, 1.0f / 3) - rootT);
-                    float b = 200 * (rootT - MathF.Pow(XYZForPixel.Z /  XYZWhiteTargetIluminant.Z, 1.0f / 3));
-                    ret[i, j].X = L;
-                    ret[i, j].Y = a;
-                    ret[i, j].Z = b;
+                    float rootY = MathF.Pow(t, 1.0f / 3);
+                    if (float.IsNaN(rootY))
+                        rootY = 0;
+                    float L = t > 0.008856 ? 116 * rootY : 903.3f * t;
+                    float rootX = MathF.Pow(XYZForPixel.X / XYZWhiteTargetIluminant.X, 1.0f / 3);
+                    if (float.IsNaN(rootX))
+                    {
+                        rootX = 0;
+                    }
+                    float a = 500 * (rootX - rootY);
+                    float rootZ = MathF.Pow(XYZForPixel.Z / XYZWhiteTargetIluminant.Z, 1.0f / 3);
+                    if (float.IsNaN (rootZ))
+                    {
+                        rootZ = 0;
+                    }
+                    float b = 200 * (rootY - rootZ);
+                    ret[i, j].X = Math.Clamp(L, 0, 100);
+                    ret[i, j].Y = Math.Clamp(a, -127, 127);
+                    ret[i, j].Z = Math.Clamp(b, -127, 127);
                 }
             }
             return ret;
