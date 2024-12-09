@@ -58,6 +58,7 @@
             labelPredefindedIlluminant = new Label();
             labelPredefinedColorProfile = new Label();
             comboBoxMode = new ComboBox();
+            buttonGenerate = new Button();
             buttonSaveOutput = new Button();
             tableLayoutPanel5 = new TableLayoutPanel();
             labelFirst = new Label();
@@ -150,20 +151,22 @@
             tableLayoutPanel4.Controls.Add(buttonLoadImage, 0, 0);
             tableLayoutPanel4.Controls.Add(groupBoxLabSettings, 0, 3);
             tableLayoutPanel4.Controls.Add(comboBoxMode, 0, 1);
+            tableLayoutPanel4.Controls.Add(buttonGenerate, 0, 4);
             tableLayoutPanel4.Dock = DockStyle.Fill;
             tableLayoutPanel4.Location = new Point(3, 3);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
-            tableLayoutPanel4.RowCount = 4;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 57.1428566F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 42.8571434F));
+            tableLayoutPanel4.RowCount = 5;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 48F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 52F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 346F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 37F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 360F));
             tableLayoutPanel4.Size = new Size(408, 482);
             tableLayoutPanel4.TabIndex = 0;
             // 
             // buttonSeparateChannels
             // 
-            buttonSeparateChannels.Location = new Point(3, 87);
+            buttonSeparateChannels.Location = new Point(3, 66);
             buttonSeparateChannels.Name = "buttonSeparateChannels";
             buttonSeparateChannels.Size = new Size(191, 29);
             buttonSeparateChannels.TabIndex = 1;
@@ -174,9 +177,9 @@
             // buttonLoadImage
             // 
             buttonLoadImage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            buttonLoadImage.Location = new Point(3, 16);
+            buttonLoadImage.Location = new Point(3, 3);
             buttonLoadImage.Name = "buttonLoadImage";
-            buttonLoadImage.Size = new Size(191, 29);
+            buttonLoadImage.Size = new Size(191, 24);
             buttonLoadImage.TabIndex = 1;
             buttonLoadImage.Text = "Load Image";
             buttonLoadImage.UseVisualStyleBackColor = true;
@@ -206,9 +209,9 @@
             groupBoxLabSettings.Controls.Add(labelCromaticity);
             groupBoxLabSettings.Controls.Add(labelPredefindedIlluminant);
             groupBoxLabSettings.Controls.Add(labelPredefinedColorProfile);
-            groupBoxLabSettings.Location = new Point(3, 124);
+            groupBoxLabSettings.Location = new Point(3, 101);
             groupBoxLabSettings.Name = "groupBoxLabSettings";
-            groupBoxLabSettings.Size = new Size(357, 355);
+            groupBoxLabSettings.Size = new Size(357, 340);
             groupBoxLabSettings.TabIndex = 0;
             groupBoxLabSettings.TabStop = false;
             groupBoxLabSettings.Text = "Lab Settings";
@@ -237,7 +240,7 @@
             // 
             numericUpDownGamma.DecimalPlaces = 2;
             numericUpDownGamma.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numericUpDownGamma.Location = new Point(235, 320);
+            numericUpDownGamma.Location = new Point(235, 312);
             numericUpDownGamma.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             numericUpDownGamma.Name = "numericUpDownGamma";
             numericUpDownGamma.Size = new Size(83, 27);
@@ -248,7 +251,7 @@
             // 
             numericUpDownYW.DecimalPlaces = 6;
             numericUpDownYW.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numericUpDownYW.Location = new Point(235, 277);
+            numericUpDownYW.Location = new Point(235, 269);
             numericUpDownYW.Maximum = new decimal(new int[] { 9, 0, 0, 65536 });
             numericUpDownYW.Name = "numericUpDownYW";
             numericUpDownYW.Size = new Size(83, 27);
@@ -259,7 +262,7 @@
             // 
             numericUpDownYB.DecimalPlaces = 6;
             numericUpDownYB.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numericUpDownYB.Location = new Point(235, 239);
+            numericUpDownYB.Location = new Point(235, 231);
             numericUpDownYB.Maximum = new decimal(new int[] { 9, 0, 0, 65536 });
             numericUpDownYB.Name = "numericUpDownYB";
             numericUpDownYB.Size = new Size(83, 27);
@@ -270,7 +273,7 @@
             // 
             numericUpDownYG.DecimalPlaces = 6;
             numericUpDownYG.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numericUpDownYG.Location = new Point(235, 198);
+            numericUpDownYG.Location = new Point(235, 190);
             numericUpDownYG.Maximum = new decimal(new int[] { 9, 0, 0, 65536 });
             numericUpDownYG.Name = "numericUpDownYG";
             numericUpDownYG.Size = new Size(83, 27);
@@ -281,7 +284,7 @@
             // 
             numericUpDownYR.DecimalPlaces = 6;
             numericUpDownYR.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numericUpDownYR.Location = new Point(235, 158);
+            numericUpDownYR.Location = new Point(235, 150);
             numericUpDownYR.Maximum = new decimal(new int[] { 9, 0, 0, 65536 });
             numericUpDownYR.Name = "numericUpDownYR";
             numericUpDownYR.Size = new Size(83, 27);
@@ -292,7 +295,7 @@
             // 
             numericUpDownXW.DecimalPlaces = 6;
             numericUpDownXW.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numericUpDownXW.Location = new Point(119, 277);
+            numericUpDownXW.Location = new Point(119, 269);
             numericUpDownXW.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
             numericUpDownXW.Name = "numericUpDownXW";
             numericUpDownXW.Size = new Size(83, 27);
@@ -303,7 +306,7 @@
             // 
             numericUpDownXB.DecimalPlaces = 6;
             numericUpDownXB.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numericUpDownXB.Location = new Point(119, 239);
+            numericUpDownXB.Location = new Point(119, 231);
             numericUpDownXB.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
             numericUpDownXB.Name = "numericUpDownXB";
             numericUpDownXB.Size = new Size(83, 27);
@@ -314,7 +317,7 @@
             // 
             numericUpDownXG.DecimalPlaces = 6;
             numericUpDownXG.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numericUpDownXG.Location = new Point(119, 198);
+            numericUpDownXG.Location = new Point(119, 190);
             numericUpDownXG.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
             numericUpDownXG.Name = "numericUpDownXG";
             numericUpDownXG.Size = new Size(83, 27);
@@ -325,7 +328,7 @@
             // 
             numericUpDownXR.DecimalPlaces = 6;
             numericUpDownXR.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            numericUpDownXR.Location = new Point(119, 158);
+            numericUpDownXR.Location = new Point(119, 150);
             numericUpDownXR.Maximum = new decimal(new int[] { 735, 0, 0, 196608 });
             numericUpDownXR.Name = "numericUpDownXR";
             numericUpDownXR.Size = new Size(83, 27);
@@ -335,7 +338,7 @@
             // labelGamma
             // 
             labelGamma.AutoSize = true;
-            labelGamma.Location = new Point(160, 322);
+            labelGamma.Location = new Point(160, 311);
             labelGamma.Name = "labelGamma";
             labelGamma.Size = new Size(61, 20);
             labelGamma.TabIndex = 9;
@@ -344,7 +347,7 @@
             // labelWhitePoint
             // 
             labelWhitePoint.AutoSize = true;
-            labelWhitePoint.Location = new Point(7, 277);
+            labelWhitePoint.Location = new Point(7, 269);
             labelWhitePoint.Name = "labelWhitePoint";
             labelWhitePoint.Size = new Size(87, 20);
             labelWhitePoint.TabIndex = 8;
@@ -353,7 +356,7 @@
             // labelBluePrimary
             // 
             labelBluePrimary.AutoSize = true;
-            labelBluePrimary.Location = new Point(7, 239);
+            labelBluePrimary.Location = new Point(7, 231);
             labelBluePrimary.Name = "labelBluePrimary";
             labelBluePrimary.Size = new Size(93, 20);
             labelBluePrimary.TabIndex = 7;
@@ -362,7 +365,7 @@
             // labelGreenPrimary
             // 
             labelGreenPrimary.AutoSize = true;
-            labelGreenPrimary.Location = new Point(7, 198);
+            labelGreenPrimary.Location = new Point(7, 190);
             labelGreenPrimary.Name = "labelGreenPrimary";
             labelGreenPrimary.Size = new Size(103, 20);
             labelGreenPrimary.TabIndex = 6;
@@ -371,7 +374,7 @@
             // labelRedPrimary
             // 
             labelRedPrimary.AutoSize = true;
-            labelRedPrimary.Location = new Point(7, 158);
+            labelRedPrimary.Location = new Point(7, 150);
             labelRedPrimary.Name = "labelRedPrimary";
             labelRedPrimary.Size = new Size(90, 20);
             labelRedPrimary.TabIndex = 5;
@@ -426,11 +429,21 @@
             // 
             comboBoxMode.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxMode.FormattingEnabled = true;
-            comboBoxMode.Location = new Point(3, 51);
+            comboBoxMode.Location = new Point(3, 33);
             comboBoxMode.Name = "comboBoxMode";
             comboBoxMode.Size = new Size(191, 28);
             comboBoxMode.TabIndex = 2;
             comboBoxMode.SelectedIndexChanged += comboBoxMode_SelectedIndexChanged;
+            // 
+            // buttonGenerate
+            // 
+            buttonGenerate.Location = new Point(3, 447);
+            buttonGenerate.Name = "buttonGenerate";
+            buttonGenerate.Size = new Size(94, 29);
+            buttonGenerate.TabIndex = 3;
+            buttonGenerate.Text = "Generate";
+            buttonGenerate.UseVisualStyleBackColor = true;
+            buttonGenerate.Click += buttonGenerate_Click;
             // 
             // buttonSaveOutput
             // 
@@ -597,5 +610,6 @@
         private ComboBox comboBoxMode;
         private ComboBox comboBoxIlluminant;
         private ComboBox comboBoxColorProfile;
+        private Button buttonGenerate;
     }
 }

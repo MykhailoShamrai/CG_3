@@ -8,6 +8,7 @@ namespace GK_3
 {
     public partial class MainForm : Form
     {
+        private ImageCreator _creator = new ImageCreator();
         private Bitmap? _selectedImage;
         private Bitmap? _firstImage;
         private Bitmap? _secondImage;
@@ -19,6 +20,7 @@ namespace GK_3
         {
             InitializeComponent();
             _selectedImage = ImageFromFile("1669101071_1-pibig-info-p-alukarda-oboi-1.jpg");
+
             pictureBoxSelectedImage.Image = _selectedImage;
 
             // Adding to lists of profiles and Illuminants
@@ -257,6 +259,19 @@ namespace GK_3
                     _thirdImage.Save(fullPathThird, format);
                 }
             }
+        }
+
+        private void buttonGenerate_Click(object sender, EventArgs e)
+        {
+            _selectedImage = _creator.CreateImage();
+            pictureBoxSelectedImage.Image = _selectedImage;
+            pictureBoxSelectedImage.Invalidate();
+            _firstImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
+            _secondImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
+            _thirdImage = new Bitmap(_selectedImage.Width, _selectedImage.Height);
+            pictureBoxFirst.Image = _firstImage;
+            pictureBoxSecond.Image = _secondImage;
+            pictureBoxThird.Image = _thirdImage;
         }
     }
 }

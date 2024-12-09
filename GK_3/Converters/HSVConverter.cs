@@ -37,15 +37,15 @@ namespace GK_3.Converters
                     }
                     else if (MathF.Abs(cMax - normalisedColors.X) < 10e-7)
                     {
-                        H = 60 * (normalisedColors.Y - normalisedColors.Z) / delta;
+                        H = 60 * (normalisedColors.Y - normalisedColors.Z / delta);
                     }
                     else if (MathF.Abs(cMax - normalisedColors.Y) < 10e-7)
                     {
-                        H = 60 * (normalisedColors.Z - normalisedColors.X) / delta + 2;
+                        H = 60 * (normalisedColors.Z - normalisedColors.X / delta + 2);
                     }
                     else 
                     {
-                        H = 60 * (normalisedColors.X - normalisedColors.Y) / delta + 4;
+                        H = 60 * (normalisedColors.X - normalisedColors.Y / delta + 4);
                     }
 
                     H = H < 0 ? (360 - (MathF.Abs(H) % 360)) : H % 360;
